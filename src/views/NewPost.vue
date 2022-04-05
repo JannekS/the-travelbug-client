@@ -15,9 +15,21 @@ export default {
   },
   data() {
     return {
-      message:
-        "If you are logged in as a user, you will be able to create your own blog post on this page :-)",
+      message: "",
     };
+  },
+  mounted: async function () {
+    const url = "http://localhost:3000/new-post";
+    try {
+      const response = await fetch(url, {
+        headers: { Authorization: "Bearer " + this.$store.getters.authToken },
+      });
+      const result = await response.json();
+      this.message = result.message;
+    } catch (error) {
+      console.log("ERROR:");
+      console.log(error);
+    }
   },
 };
 </script>

@@ -26,9 +26,17 @@
           >
         </div>
         <div class="nav-item">
-          <router-link to="/login"
-            ><img src="/icons/log-in.svg" /><span> Log In</span></router-link
-          >
+          <div v-if="!isLoggedIn">
+            <router-link to="/login"
+              ><img src="/icons/log-in.svg" /><span> Login</span></router-link
+            >
+          </div>
+          <div v-else @click="logout">
+            <router-link to="/">
+              <img src="/icons/log-in.svg" />
+              <span> Logout</span>
+            </router-link>
+          </div>
         </div>
       </nav>
     </div>
@@ -36,7 +44,18 @@
 </template>
 
 <script>
-export default {};
+export default {
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.userLoggedIn;
+    },
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+    },
+  },
+};
 </script>
 
 <style scoped>

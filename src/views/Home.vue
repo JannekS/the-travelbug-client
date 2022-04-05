@@ -3,7 +3,6 @@
     <div class="main-container" v-if="blogPostData">
       <Previews :blogPosts="blogPostData" />
       <div id="map-wrapper">
-        <!-- <h2>this is where the map goes</h2> -->
         <TravelMap :blogPosts="blogPostData" />
       </div>
     </div>

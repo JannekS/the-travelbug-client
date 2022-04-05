@@ -47,9 +47,9 @@ export default {
       const result = await response.json();
 
       context.blogPost = result;
-      context.geo = { lat: result.lat, lng: result.lng };
+      context.geo = { lat: result.location.lat, lng: result.location.lng };
       context.pageLoaded = true;
-      context.status = result.status;
+      context.status = response.statusText;
     } catch (error) {
       console.log("ERROR:");
       console.log(error);

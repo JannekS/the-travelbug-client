@@ -15,20 +15,22 @@
         <div class="date-location">
           <div>
             <img src="/icons/map-pin.svg" alt="Location: " />
-            <p>{{ blogPost.city }} | {{ blogPost.country }}</p>
+            <p>
+              {{ blogPost.location.city }} | {{ blogPost.location.country }}
+            </p>
           </div>
           <div>
             <img src="/icons/calendar.svg" alt="Date: " />
             <p>
-              {{ blogPost.trip_duration }}
+              {{ blogPost.tripDuration }}
             </p>
           </div>
         </div>
         <div class="author-info">
           <div class="author-img">
-            <img :src="blogPost.author_image" alt="author-img" />
+            <img :src="blogPost.author.image" alt="author-img" />
           </div>
-          <p>{{ blogPost.author_name }}</p>
+          <p>{{ blogPost.author.name }}</p>
         </div>
       </div>
     </div>

@@ -10,7 +10,7 @@
       <GMapMarker
         :key="index"
         v-for="(post, index) in blogPosts"
-        :position="{ lat: post.lat, lng: post.lng }"
+        :position="{ lat: post.location.lat, lng: post.location.lng }"
         :clickable="true"
         @click="openInfoWindow(post.id)"
       >
@@ -44,8 +44,8 @@ export default {
   data() {
     return {
       center: {
-        lat: this.blogPosts[0].lat,
-        lng: this.blogPosts[0].lng,
+        lat: this.blogPosts[0].location.lat,
+        lng: this.blogPosts[0].location.lng,
       },
       openedPostId: null,
       options: {

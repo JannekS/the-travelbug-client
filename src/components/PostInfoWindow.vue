@@ -5,16 +5,16 @@
       <div class="date">
         <img src="/icons/calendar.svg" alt="Date: " />
         <p>
-          {{ blogPost.trip_duration }}
+          {{ blogPost.tripDuration }}
         </p>
       </div>
     </div>
     <div class="read-more">
       <div class="author-info">
         <div class="author-img">
-          <img :src="blogPost.author_image" alt="author image" />
+          <img :src="blogPost.author.image" alt="author image" />
         </div>
-        <p>{{ blogPost.author_name }}</p>
+        <p>{{ blogPost.author.name }}</p>
       </div>
       <router-link :to="detailPage">
         <img id="link-arrow" src="/icons/arrow-right.svg" /> Read

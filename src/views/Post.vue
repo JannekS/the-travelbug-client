@@ -10,22 +10,22 @@
       </div>
     </div>
     <div v-else>
-      <Loading />
+      <LoadingSpinner />
     </div>
   </div>
 </template>
 
 <script>
-import PostDetail from "@/components/PostDetail.vue";
+import PostDetail from "@/components/post/PostDetail.vue";
 import FourOFour from "@/components/FourOFour.vue";
-import Loading from "@/components/Loading.vue";
+import LoadingSpinner from "@/components/ui/LoadingSpinner.vue";
 import BackHome from "@/components/BackHome.vue";
 
 export default {
   components: {
     PostDetail,
     FourOFour,
-    Loading,
+    LoadingSpinner,
     BackHome,
   },
   data: function () {

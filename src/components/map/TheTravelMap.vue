@@ -19,7 +19,7 @@
           @closeclick="openInfoWindow(null)"
           :opened="openedPostId === post.id"
         >
-          <div><PostInfoWindow :blogPost="post" /></div>
+          <div><MapInfoWindow :blogPost="post" /></div>
         </GMapInfoWindow>
       </GMapMarker>
     </GMapMap>
@@ -27,11 +27,11 @@
 </template>
 
 <script>
-import PostInfoWindow from "@/components/PostInfoWindow.vue";
+import MapInfoWindow from "@/components/map/MapInfoWindow.vue";
 
 export default {
   components: {
-    PostInfoWindow,
+    MapInfoWindow,
   },
   props: {
     blogPosts: {

@@ -1,28 +1,28 @@
 <template>
   <main>
     <div class="main-container" v-if="blogPostData">
-      <Previews :blogPosts="blogPostData" />
+      <ThePostPreviewList :blogPosts="blogPostData" />
       <div id="map-wrapper">
-        <TravelMap :blogPosts="blogPostData" />
+        <TheTravelMap :blogPosts="blogPostData" />
       </div>
     </div>
     <div class="main-container" v-else>
-      <Loading />
+      <LoadingSpinner />
     </div>
   </main>
 </template>
 
 <script>
-import Previews from "@/components/Previews.vue";
-import TravelMap from "@/components/TravelMap.vue";
-import Loading from "@/components/Loading.vue";
+import ThePostPreviewList from "@/components/layout/ThePostPreviewList.vue";
+import TheTravelMap from "@/components/map/TheTravelMap.vue";
+import LoadingSpinner from "@/components/ui/LoadingSpinner.vue";
 
 export default {
   name: "Home",
   components: {
-    Previews,
-    TravelMap,
-    Loading,
+    ThePostPreviewList,
+    TheTravelMap,
+    LoadingSpinner,
   },
   data: function () {
     return {

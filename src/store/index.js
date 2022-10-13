@@ -12,6 +12,21 @@ const store = createStore({
       userId: null,
       authToken: null,
       isLoggedIn: false,
+      postDraft: {
+        location: null,
+        country: null,
+        coordinates: {
+          lat: null,
+          lng: null,
+          text: "",
+        },
+        startDate: null,
+        endDate: null,
+        image: null,
+        title: null,
+        mainText: "",
+        authorId: null,
+      },
     };
   },
   mutations: {
@@ -25,6 +40,24 @@ const store = createStore({
       state.userId = null;
       state.authToken = null;
       state.isLoggedIn = false;
+      state.postDraft = {
+        location: null,
+        country: null,
+        coordinates: {
+          lat: null,
+          lng: null,
+          text: "",
+        },
+        startDate: null,
+        endDate: null,
+        image: null,
+        title: null,
+        mainText: "",
+        authorId: null,
+      };
+    },
+    updatePost(state, payload) {
+      state.postDraft = payload;
     },
   },
   actions: {
@@ -33,6 +66,9 @@ const store = createStore({
     },
     logout(context) {
       context.commit("logout");
+    },
+    updatePostDraft(context, payload) {
+      context.commit("updatePost", payload);
     },
   },
   getters: {
@@ -45,6 +81,9 @@ const store = createStore({
     userLoggedIn(state) {
       return state.isLoggedIn;
     },
+    postDraft(state) {
+      return state.postDraft;
+    }
   },
   plugins: [vuexLocal.plugin],
 });

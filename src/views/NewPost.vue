@@ -1,24 +1,31 @@
 <template>
   <div class="new-post-container">
     <BackHome />
-    <CommingSoon :message="message" />
+    <div v-if="isLoggedIn">
+      <NewPostForm />
+    </div>
+    <div v-else>
+      <CommingSoon :message="message" />
+    </div>
   </div>
 </template>
 
 <script>
 import BackHome from "@/components/BackHome.vue";
 import CommingSoon from "@/components/CommingSoon.vue";
+import NewPostForm from "@/components/NewPostForm.vue";
 export default {
   components: {
     CommingSoon,
     BackHome,
+    NewPostForm,
   },
   data() {
     return {
-      message: "",
+      message: "Sorry, you have to login, before you can write a new post.",
     };
   },
-  mounted: async function () {
+  /* mounted: async function () {
     const url = "http://localhost:3000/new-post";
     try {
       const response = await fetch(url, {
@@ -30,6 +37,11 @@ export default {
       console.log("ERROR:");
       console.log(error);
     }
+  }, */
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.userLoggedIn;
+    },
   },
 };
 </script>

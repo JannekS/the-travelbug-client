@@ -11,6 +11,7 @@
       accept=".jpg, .jpeg, .png"
       @change="handleFileUpload"
     />
+    <div class="imageName">{{ fileName }}</div>
   </div>
 </template>
 
@@ -24,9 +25,15 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      fileName: "No file selected yet.",
+    }
+  },
   emits: ["uploadFile"],
   methods: {
     handleFileUpload(event) {
+      this.fileName = event.target.files[0].name;
       this.$emit("uploadFile", event.target.files[0]);
     },
   },
@@ -44,29 +51,23 @@ div {
 
 input {
   visibility: hidden;
+  width: 1px;
 }
-
-/* .file {
-  font-family: "Lato", sans-serif;
-  padding: 5px 10px;
-  margin: 0px 5px 5px 5px;
-  width: 150px;
-  background: transparent no-repeat;
-  border-radius: 5px;
-  border: solid 1px black;
-  font-size: 1rem;
-  box-shadow: 1px 1px 1px rgb(98, 98, 98);
-}
-
-.file:hover {
-  background-color: #f0a500;
-}
-.file:active {
-  background-color: #e19d0c;
-  box-shadow: none;
-} */
 
 label {
   width: 75px;
+}
+
+.imageName {
+  font-family: "Yomogi", cursive;
+  font-size: 1rem;
+  color: black;
+  border-radius: 0px;
+  margin: 5px 15px;
+  min-width: 150px;
+  max-width: 450px;
+  border: none;
+  border-bottom: solid black 1px;
+  background: transparent no-repeat;
 }
 </style>

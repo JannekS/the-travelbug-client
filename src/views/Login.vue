@@ -86,7 +86,7 @@
 
 <script>
 import BackHome from "@/components/BackHome.vue";
-import BaseForm from "@/components/ui/BaseForm.vue";
+import BaseForm from "@/components/form/BaseForm.vue";
 export default {
   components: {
     BackHome,

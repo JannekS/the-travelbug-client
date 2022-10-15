@@ -13,7 +13,7 @@
 <script>
 import BackHome from "@/components/BackHome.vue";
 import CommingSoon from "@/components/CommingSoon.vue";
-import NewPostForm from "@/components/NewPostForm.vue";
+import NewPostForm from "@/components/form/NewPostForm.vue";
 export default {
   components: {
     CommingSoon,

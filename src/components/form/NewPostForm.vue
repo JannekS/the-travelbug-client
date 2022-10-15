@@ -45,12 +45,9 @@
 
     <fieldset>
       <legend>Content</legend>
-      <BaseFormInput
-        type="file"
-        name="image"
-        label="Select an Image"
-        @uploadFile="savePostImage"
-      />
+
+      <FormInputImage label="Select an Image" @uploadFile="savePostImage" />
+
       <BaseFormInput
         name="title"
         label="Title"
@@ -91,14 +88,16 @@
 </template>
 
 <script>
-import BaseForm from "@/components/ui/BaseForm.vue";
-import BaseFormInput from "@/components/ui/BaseFormInput.vue";
+import BaseForm from "@/components/form/BaseForm.vue";
+import BaseFormInput from "@/components/form/BaseFormInput.vue";
+import FormInputImage from "@/components/form/FormInputImage.vue";
 
 export default {
   components: {
     BaseForm,
     BaseFormInput,
-  },
+    FormInputImage
+},
   data() {
     return {
       postDraft: this.$store.getters.postDraft,
@@ -128,7 +127,7 @@ export default {
         endDate: null,
         title: null,
         mainText: "",
-        authorId: null, 
+        authorId: null,
       });
     },
     savePostImage(file) {
@@ -139,19 +138,7 @@ export default {
       postData.image = this.postImage;
       postData.authorId = this.userId;
       const formData = this.bundleFormData(postData);
-      // formData.append("image", this.postImage);
 
-      /* const formData = new FormData();
-      formData.append("location", this.postDraft.location);
-      formData.append("country", this.postDraft.country);
-      formData.append("lat", this.postDraft.lat);
-      formData.append("lng", this.postDraft.lng);
-      formData.append("startDate", this.postDraft.startDate);
-      formData.append("endDate", this.postDraft.endDate);
-      formData.append("title", this.postDraft.title);
-      formData.append("mainText", this.postDraft.mainText);
-      formData.append("image", this.postImage);
-      formData.append("authorId", this.userId); */
       console.log(formData.get("location"));
       console.log(formData.get("image"));
     },
@@ -194,7 +181,7 @@ export default {
         enctype: "multipart/form-data", //check if this is correct
         headers: {
           "Content-Type": "multipart/form-data",
-          "Accept": "application/json",
+          Accept: "application/json",
           Authorization: "Bearer " + this.authToken,
         },
         body: formData,

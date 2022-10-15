@@ -6,38 +6,38 @@
 
 <script>
 export default {
-    props: {
-        btnValue: {
-            type: String,
-            required: true,
-        },
-        type: {
-            type: String,
-            default: "button", //make it only accept button, submit and reset
-        },
-        name: {
-            type: String,
-            required: true,
-        },
+  props: {
+    btnValue: {
+      type: String,
+      default: "Click here",
     },
-    emits: ["btnClicked", "sumbmit", "reset"],
-  methods: {
-      onClick(event) {
-        if (this.type === "submit") {
-            this.$emit("submit");
-            return;
-        }
-        if (this.type === "reset") {
-            this.$emit("reset");
-            return;
-        }
-        this.$emit("btnClicked", event.target.name);
+    type: {
+      type: String,
+      default: "button", //make it only accept button, submit and reset
+    },
+    name: {
+      type: String,
+      default: "button",
     },
   },
-}
+  emits: ["btnClicked", "sumbmit", "reset"],
+  methods: {
+    onClick(event) {
+      if (this.type === "submit") {
+        this.$emit("submit");
+        return;
+      }
+      if (this.type === "reset") {
+        this.$emit("reset");
+        return;
+      }
+      this.$emit("btnClicked", event.target.name);
+    },
+  },
+};
 </script>
 
-<style>
+<style scoped>
 .button {
   font-family: "Lato", sans-serif;
   padding: 5px 10px;

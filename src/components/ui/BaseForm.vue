@@ -65,9 +65,14 @@ fieldset {
   border-radius: 5px;
   border: solid 1px black;
   font-size: 1rem;
+  box-shadow: 1px 1px 1px rgb(98, 98, 98);
+}
+.form-btn:hover {
+  background-color: #f0a500;
 }
 .form-btn:active {
-  background-color: #f0a500;
+  background-color: #e19d0c;
+  box-shadow: none;
 }
 
 .form-title {

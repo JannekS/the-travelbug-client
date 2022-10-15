@@ -15,14 +15,10 @@ const store = createStore({
       postDraft: {
         location: null,
         country: null,
-        coordinates: {
-          lat: null,
-          lng: null,
-          text: "",
-        },
+        lat: null,
+        lng: null,
         startDate: null,
         endDate: null,
-        image: null,
         title: null,
         mainText: "",
         authorId: null,

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label :class="type" :for="name"> {{ label }} </label>
+    <label :for="name"> {{ label }} </label>
     <div v-if="type === 'textarea'">
       <textarea
         v-if="isRequired"
@@ -18,15 +18,6 @@
         :placeholder="placeholder"
         :value="modelValue"
         @change="handleInput"
-      />
-    </div>
-    <div v-else-if="type === 'file'">
-      <input
-        :type="type"
-        :id="name"
-        :name="name"
-        required
-        @change="handleFileUpload"
       />
     </div>
     <div v-else>
@@ -78,14 +69,11 @@ export default {
     },
     modelValue: {},
   },
-  emits: ["update:modelValue", "uploadFile"],
+  emits: ["update:modelValue"],
   methods: {
     handleInput(event) {
       this.$emit("update:modelValue", event.target.value);
     },
-    handleFileUpload(event) {
-      this.$emit("uploadFile", event.target.files[0]);
-    }
   },
 };
 </script>
@@ -109,30 +97,6 @@ input {
   border: none;
   border-bottom: solid black 1px;
   background: transparent no-repeat;
-}
-
-input[type="file"] {
-  visibility: hidden;
-}
-
-.file {
-  font-family: "Lato", sans-serif;
-  padding: 5px 10px;
-  margin: 0px 5px 5px 5px;
-  width: 150px;
-  background: transparent no-repeat;
-  border-radius: 5px;
-  border: solid 1px black;
-  font-size: 1rem;
-  box-shadow: 1px 1px 1px rgb(98, 98, 98);
-}
-
-.file:hover {
-  background-color: #f0a500;
-}
-.file:active {
-  background-color: #e19d0c;
-  box-shadow: none;
 }
 
 label {

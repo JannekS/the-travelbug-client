@@ -1,13 +1,13 @@
 <template>
   <button :type="type" @click="onClick" class="button">
-    <slot>{{ btnValue }}</slot>
+    <slot>{{ value }}</slot>
   </button>
 </template>
 
 <script>
 export default {
   props: {
-    btnValue: {
+    value: {
       type: String,
       default: "Click here",
     },
@@ -20,7 +20,7 @@ export default {
       default: "button",
     },
   },
-  emits: ["btnClicked", "sumbmit", "reset"],
+  emits: ["btnClicked", "submit", "reset"],
   methods: {
     onClick(event) {
       if (this.type === "submit") {

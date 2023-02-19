@@ -9,7 +9,7 @@
         required
         :placeholder="placeholder"
         :value="modelValue"
-        @input="handleInput"
+        @change="handleInput"
       />
       <textarea
         v-else
@@ -28,6 +28,8 @@
         :name="name"
         required
         :placeholder="placeholder"
+        :min="min"
+        :max="max"
         :value="modelValue"
         @input="handleInput"
       />
@@ -37,6 +39,8 @@
         :id="name"
         :name="name"
         :placeholder="placeholder"
+        :min="min"
+        :max="max"
         :value="modelValue"
         @input="handleInput"
       />
@@ -66,6 +70,14 @@ export default {
     },
     placeholder: {
       type: String,
+    },
+    min: {
+      type: String,
+      defaut: null,
+    },
+    max: {
+      type: String,
+      defaut: null,
     },
     modelValue: {},
   },

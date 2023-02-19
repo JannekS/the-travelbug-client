@@ -11,7 +11,10 @@
       accept=".jpg, .jpeg, .png"
       @change="handleFileUpload"
     />
-    <div class="imageName">{{ fileName }}</div>
+    <div class="imageName">
+      <span v-if="fileChosen">{{ fileName }}</span>
+      <span v-else>No Image selected yet.</span>
+    </div>
   </div>
 </template>
 
@@ -24,15 +27,23 @@ export default {
       default: "Select an image",
       required: true,
     },
+    fileChosen: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
-      fileName: "No file selected yet.",
-    }
+      fileName: {
+        type: String,
+        default: null,
+      },
+    };
   },
   emits: ["uploadFile"],
   methods: {
     handleFileUpload(event) {
+      // console.log(event.target.value);
       this.fileName = event.target.files[0].name;
       this.$emit("uploadFile", event.target.files[0]);
     },

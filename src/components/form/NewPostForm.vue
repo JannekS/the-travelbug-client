@@ -7,13 +7,20 @@
         label="Location"
         placeholder="like 'Barcelona'"
         v-model="postDraft.location"
+        @change="
+          saveDraft();
+          getCoordinates();
+        "
       />
       <BaseFormInput
         name="country"
         label="Country"
         placeholder="like 'Spain'"
         v-model="postDraft.country"
-        @change="saveDraft"
+        @change="
+          saveDraft();
+          getCoordinates();
+        "
       />
       <!-- this should be readonly -->
       <!-- <BaseFormInput
@@ -38,6 +45,7 @@
         type="date"
         name="endDate"
         label="End Date"
+        :min="postDraft.startDate"
         v-model="postDraft.endDate"
         @change="saveDraft"
       />
@@ -46,7 +54,11 @@
     <fieldset>
       <legend>Content</legend>
 
-      <FormInputImage label="Select an Image" @uploadFile="savePostImage" />
+      <FormInputImage
+        label="Select an Image"
+        :fileChosen="imageSelected"
+        @uploadFile="savePostImage"
+      />
 
       <BaseFormInput
         name="title"
@@ -67,21 +79,17 @@
     <div>
       <div class="btn-wrapper" id="form-buttons-container">
         <!-- replace this by BaseButton -->
-        <input
+        <BaseButton
           type="reset"
           value="Cancel"
-          class="form-btn"
-          id="cancel-post-btn"
-          @click="clearDraft"
-        />
+          @reset="clearDraft"
+        ></BaseButton>
         <!-- replace this by BaseButton -->
-        <input
+        <BaseButton
           type="submit"
           value="Save Post"
-          class="form-btn"
-          id="save-post-btn"
-          @click="testForm"
-        />
+          @submit="testForm"
+        ></BaseButton>
       </div>
     </div>
   </BaseForm>
@@ -91,18 +99,21 @@
 import BaseForm from "@/components/form/BaseForm.vue";
 import BaseFormInput from "@/components/form/BaseFormInput.vue";
 import FormInputImage from "@/components/form/FormInputImage.vue";
+import BaseButton from "@/components/ui/BaseButton.vue";
 
 export default {
   components: {
     BaseForm,
     BaseFormInput,
-    FormInputImage
-},
+    FormInputImage,
+    BaseButton,
+  },
   data() {
     return {
       postDraft: this.$store.getters.postDraft,
       postUrl: process.env.VUE_APP_SERVER_URL,
       postImage: null,
+      imageSelected: false,
     };
   },
   computed: {
@@ -129,9 +140,12 @@ export default {
         mainText: "",
         authorId: null,
       });
+      this.postImage = null;
+      this.imageSelected = false;
     },
     savePostImage(file) {
       this.postImage = file;
+      this.imageSelected = true;
     },
     testForm() {
       const postData = { ...this.postDraft };
@@ -143,6 +157,7 @@ export default {
       console.log(formData.get("image"));
     },
     async getCoordinates() {
+      // console.log("Coordinates are working...");
       const context = this;
       try {
         const response = await fetch(
@@ -167,7 +182,7 @@ export default {
       const bundledFormData = new FormData();
       Object.entries(formDataObject).forEach(([property, value]) => {
         bundledFormData.append(`${property}`, value);
-        console.log(bundledFormData.get(property));
+        // console.log(bundledFormData.get(property));
       });
       return bundledFormData;
     },

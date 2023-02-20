@@ -22,18 +22,6 @@
           getCoordinates();
         "
       />
-      <!-- this should be readonly -->
-      <!-- <BaseFormInput
-        name="coordinates"
-        label="Coordinates"
-        placeholder="click the button"
-        v-model="postDraft.coordinates.text"
-        @change="saveDraft"
-      /> -->
-      <!-- replace this by BaseButton -->
-      <button class="form-btn" type="button" @click="getCoordinates">
-        Get Coordinates
-      </button>
       <BaseFormInput
         type="date"
         name="startDate"
@@ -78,17 +66,15 @@
     </fieldset>
     <div>
       <div class="btn-wrapper" id="form-buttons-container">
-        <!-- replace this by BaseButton -->
         <BaseButton
           type="reset"
           value="Cancel"
           @reset="clearDraft"
         ></BaseButton>
-        <!-- replace this by BaseButton -->
         <BaseButton
           type="submit"
           value="Save Post"
-          @submit="testForm"
+          @submit="submitPost"
         ></BaseButton>
       </div>
     </div>
@@ -111,7 +97,7 @@ export default {
   data() {
     return {
       postDraft: this.$store.getters.postDraft,
-      postUrl: process.env.VUE_APP_SERVER_URL,
+      postUrl: process.env.VUE_APP_SERVER_URL + "/new-post", // TODO: handle this more elegantly
       postImage: null,
       imageSelected: false,
     };
@@ -147,7 +133,7 @@ export default {
       this.postImage = file;
       this.imageSelected = true;
     },
-    testForm() {
+/*     testForm() {
       const postData = { ...this.postDraft };
       postData.image = this.postImage;
       postData.authorId = this.userId;
@@ -155,9 +141,8 @@ export default {
 
       console.log(formData.get("location"));
       console.log(formData.get("image"));
-    },
+    }, */
     async getCoordinates() {
-      // console.log("Coordinates are working...");
       const context = this;
       try {
         const response = await fetch(
@@ -182,31 +167,35 @@ export default {
       const bundledFormData = new FormData();
       Object.entries(formDataObject).forEach(([property, value]) => {
         bundledFormData.append(`${property}`, value);
-        // console.log(bundledFormData.get(property));
+        console.log(bundledFormData.get(property));
       });
       return bundledFormData;
     },
 
     async submitPost() {
-      // const context = this;
       const url = this.postUrl;
-      const formData = new FormData(this.form);
+      const postData = { ...this.postDraft };
+      postData.image = this.postImage;
+      postData.authorId = this.userId;
+      const formData = this.bundleFormData(postData);
+
       const response = await fetch(url, {
         method: "POST",
         enctype: "multipart/form-data", //check if this is correct
         headers: {
-          "Content-Type": "multipart/form-data",
+          // "Content-Type": "multipart/form-data",
           Accept: "application/json",
           Authorization: "Bearer " + this.authToken,
         },
         body: formData,
       });
       const result = await response.json();
-      this.responseData = result;
-      this.responseData.status = response.status;
+      const responseData = result;
+      responseData.status = response.status;
       if (response.status === 200) {
         // maybe write further code here
       }
+      console.log(responseData);
     },
   },
 };

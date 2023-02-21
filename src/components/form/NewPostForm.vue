@@ -144,22 +144,28 @@ export default {
     }, */
     async getCoordinates() {
       const context = this;
-      try {
-        const response = await fetch(
-          `https://nominatim.openstreetmap.org/search?city=${this.postDraft.location}&country=${this.postDraft.country}&format=json`
-        );
-        const result = await response.json();
-        if (result[0]) {
-          context.postDraft.lat = Number(result[0].lat);
-          context.postDraft.lng = Number(result[0].lon);
-          return;
+      if (context.postDraft.location && context.postDraft.country) {
+        try {
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/search?city=${this.postDraft.location}&country=${this.postDraft.country}&format=json`
+          );
+          const result = await response.json();
+          if (result[0]) {
+            context.postDraft.lat = Number(result[0].lat);
+            context.postDraft.lng = Number(result[0].lon);
+            context.saveDraft();
+            return;
+          }
+          context.postDraft.lat = null;
+          context.postDraft.lng = null;
+          context.saveDraft();
+          alert(
+            "Could not get Coordinates :-( Maybe there's a spelling mistake in the location or the city?"
+          );
+        } catch (err) {
+          alert("Something went wrong :-( Could not get Coordinates...");
+          console.log(err);
         }
-        alert(
-          "Could not get Coordinates :-( Maybe there's a spelling mistake in the location or the city?"
-        );
-      } catch (err) {
-        alert("Something went wrong :-( Could not get Coordinates...");
-        console.log(err);
       }
     },
 
